@@ -1,10 +1,11 @@
 package datastructures
 
 import interfaces.Stack
+import java.util.concurrent.CopyOnWriteArrayList
 
 class LIFOStack<T> : Stack<T> {
 
-    private val stack = arrayListOf<T>()
+    private val stack = CopyOnWriteArrayList<T>()
 
     override fun push(element: T) {
         stack.add(element)
@@ -24,11 +25,13 @@ class LIFOStack<T> : Stack<T> {
     }
 
     override fun popAll() : List<T> {
-        val tempStack = arrayListOf<T>()
-        for (item in stack) {
-            pop()?.let { tempStack.add(it) }
+        synchronized(stack) {
+            val tempStack = arrayListOf<T>()
+            for (item in stack) {
+                pop()?.let { tempStack.add(it) }
+            }
+            return tempStack
         }
-        return tempStack
     }
 
     override fun peek(): T? = stack.lastOrNull()
