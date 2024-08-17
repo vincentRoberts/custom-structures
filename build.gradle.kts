@@ -18,8 +18,6 @@ dependencies {
     // Desktop Compose dependencies
     implementation(compose.desktop.currentOs)
     implementation("org.jetbrains.compose.material3:material3-desktop:1.4.3")
-    implementation("androidx.compose.ui:ui:1.4.0")
-    implementation("androidx.compose.material:material:1.4.0")
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 

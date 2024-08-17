@@ -3,12 +3,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
+import ui.QueueScreen
 import ui.StackScreen
 
 @Composable
 @Preview
 fun App() {
-    StackScreen()
+    //StackScreen()
+    QueueScreen()
 }
 
 fun main() = application {
