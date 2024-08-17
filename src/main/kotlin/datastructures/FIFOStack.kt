@@ -94,6 +94,8 @@ class FIFOStack<T> : Stack<T> {
      * @return `true` if the stack contains no elements, `false` otherwise
      */
     override fun isEmpty() = size() == 0
+
+    override fun toString(): String = stack.joinToString(separator = "\n")
 }
 
 /**
