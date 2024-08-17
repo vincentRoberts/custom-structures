@@ -1,9 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -14,7 +12,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.example.compose.AppTheme
 import datastructures.CustomQueue
+import datastructures.SinglyLinkedList
 import datastructures.customQueueOf
+import ui.LinkedListScreen
 import ui.MenuItem
 import ui.QueueScreen
 import ui.StackScreen
@@ -26,6 +26,8 @@ fun App() {
 
     var selectedMenuItem by remember { mutableStateOf<MenuItem?>(null) }
     val queue by remember { mutableStateOf(CustomQueue<String>()) }
+    val singlyLL by remember { mutableStateOf(SinglyLinkedList<String>()) }
+
 
     Scaffold(
         topBar = {
@@ -43,6 +45,17 @@ fun App() {
                         }
                     }
                     Spacer(modifier = Modifier.width(width = 16.dp))
+                    IconButton(onClick = { selectedMenuItem = MenuItem.SinglyLL }) {
+                        Row() {
+                            Icon(
+                                Icons.Default.KeyboardArrowDown,
+                                contentDescription = "Singly Linked List"
+                            )
+                            Spacer(modifier = Modifier.width(width = 4.dp))
+                            Text("Singly LL", modifier = Modifier.padding(top = 2.dp))
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(64.dp))
                     IconButton(onClick = { selectedMenuItem = MenuItem.Queue }) {
                         Row() {
                             Icon(
@@ -60,6 +73,7 @@ fun App() {
             when (selectedMenuItem) {
                 MenuItem.Stacks -> StackScreen()
                 MenuItem.Queue -> QueueScreen(queue)
+                MenuItem.SinglyLL -> LinkedListScreen(singlyLL)
                 else -> StackScreen()
             }
         }
