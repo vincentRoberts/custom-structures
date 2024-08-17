@@ -1,6 +1,8 @@
 package ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,7 +15,9 @@ fun QueueScreen(queue: CustomQueue<String>) {
 
     var inputText by remember { mutableStateOf("") }
 
-    Column(Modifier.padding(16.dp))
+    Column(Modifier
+        .padding(16.dp)
+        .verticalScroll(rememberScrollState()).fillMaxSize())
     {
         Text(
             "Queue",
@@ -28,19 +32,22 @@ fun QueueScreen(queue: CustomQueue<String>) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Button(onClick = {
-            if (inputText.isNotBlank()) queue.enqueue(inputText)
-            inputText = ""
-        }) {
-            Text("Enqueue")
-        }
+        Row() {
 
-        Button(onClick = { queue.dequeue() }) {
-            Text("Dequeue")
-        }
+            Button(onClick = {
+                if (inputText.isNotBlank()) queue.enqueue(inputText)
+                inputText = ""
+            }) {
+                Text("Enqueue")
+            }
 
-        Button(onClick = { while (!queue.isEmpty()) queue.dequeue() }) {
-            Text("Clear")
+            Button(onClick = { queue.dequeue() }) {
+                Text("Dequeue")
+            }
+
+            Button(onClick = { while (!queue.isEmpty()) queue.dequeue() }) {
+                Text("Clear")
+            }
         }
 
         Text("Queue Size: ${queue.size()}")

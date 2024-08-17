@@ -1,6 +1,8 @@
 package ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,7 +16,9 @@ fun LinkedListScreen(list: LinkedList<String>) {
     var listSize by remember { mutableStateOf(list.size()) }
     var inputText by remember { mutableStateOf("") }
 
-    Column(Modifier.padding(16.dp))
+    Column(Modifier
+        .padding(16.dp)
+        .verticalScroll(rememberScrollState()).fillMaxSize())
     {
         Text(
             "Singly Linked List",
@@ -30,46 +34,49 @@ fun LinkedListScreen(list: LinkedList<String>) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(onClick = {
-            list.addFirst(inputText)
-            listSize = list.size()
-            inputText = ""
-        }) {
-            Text("Add First")
-        }
+        Row() {
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(onClick = {
-            list.addLast(inputText)
-            listSize = list.size()
-            inputText = ""
-        }) {
-            Text("Add Last")
-        }
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(onClick = {
+                list.addFirst(inputText)
+                listSize = list.size()
+                inputText = ""
+            }) {
+                Text("Add First")
+            }
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(onClick = {
-            list.removeFirst()
-            listSize = list.size()
-        }) {
-            Text("Remove First")
-        }
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(onClick = {
+                list.addLast(inputText)
+                listSize = list.size()
+                inputText = ""
+            }) {
+                Text("Add Last")
+            }
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(onClick = {
-            list.removeLast()
-            listSize = list.size()
-        }) {
-            Text("Remove Last")
-        }
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(onClick = {
+                list.removeFirst()
+                listSize = list.size()
+            }) {
+                Text("Remove First")
+            }
 
-        Spacer(modifier = Modifier.width(8.dp))
-        Button(onClick = {
-            list.clear()
-            listSize = list.size()
-        }) {
-            Text("Clear")
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(onClick = {
+                list.removeLast()
+                listSize = list.size()
+            }) {
+                Text("Remove Last")
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(onClick = {
+                list.clear()
+                listSize = list.size()
+            }) {
+                Text("Clear")
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
