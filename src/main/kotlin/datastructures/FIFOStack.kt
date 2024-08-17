@@ -24,20 +24,23 @@ class FIFOStack<T> : Stack<T> {
         if (isEmpty()) {
             return null
         }
-        return stack.removeAt(size() - 1)
+        //Change from LIFO
+        return stack.removeAt(0)
     }
 
     override fun popAll() : List<T> {
         synchronized(stack) {
             val tempStack = arrayListOf<T>()
-            for (item in stack) {
+            //**
+            while(!isEmpty()) {
                 pop()?.let { tempStack.add(it) }
             }
             return tempStack
         }
     }
 
-    override fun peek(): T? = stack.lastOrNull()
+    //**
+    override fun peek(): T? = stack.firstOrNull()
 
     override fun peek(index: Int): T? = stack.getOrNull(index)
 }
