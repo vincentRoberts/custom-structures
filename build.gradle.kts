@@ -1,9 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("jvm") version "1.9.0"
-    id("org.jetbrains.compose") version "1.6.0"
-    id("org.jetbrains.dokka") version "1.8.20"
+    kotlin("jvm")
+    id("org.jetbrains.compose")
 }
 
 group = "ie.setu"
@@ -15,14 +14,11 @@ repositories {
     google()
 }
 
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-
-    dependencies {
-        implementation(compose.desktop.currentOs)
-        implementation("org.jetbrains.compose.material3:material3-desktop:1.4.3")
-        implementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    }
+dependencies {
+    // Desktop Compose dependencies
+    implementation(compose.desktop.currentOs)
+    implementation("org.jetbrains.compose.material3:material3-desktop:1.4.3")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 compose.desktop {
