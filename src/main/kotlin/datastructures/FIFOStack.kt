@@ -3,24 +3,24 @@ package datastructures
 import interfaces.Stack
 import java.util.concurrent.CopyOnWriteArrayList
 
-//**KDoc added with ChatGpt
+//KDoc added with ChatGpt
 
 /**
- * A thread-safe implementation of a Last-In-First-Out (LIFO) stack.
+ * A thread-safe implementation of a First-In-First-Out (FIFO) stack.
  *
  * This class uses a [CopyOnWriteArrayList] to store elements, ensuring thread safety
  * at the cost of performance during write operations. The stack operates by
- * pushing elements onto the end of the list and popping them from the end, maintaining
- * LIFO order.
+ * pushing elements onto the end of the list and popping them from the beginning,
+ * maintaining FIFO order.
  *
  * @param T the type of elements held in this stack
  */
-class LIFOStack<T> : Stack<T> {
+class FIFOStack<T> : Stack<T> {
 
     private val stack = CopyOnWriteArrayList<T>()
 
     /**
-     * Adds an element to the top of the stack.
+     * Adds an element to the end of the stack.
      *
      * @param element the element to be added
      */
@@ -40,21 +40,21 @@ class LIFOStack<T> : Stack<T> {
     }
 
     /**
-     * Removes and returns the top element of the stack.
+     * Removes and returns the first element of the stack, following FIFO order.
      *
-     * @return the top element of the stack, or `null` if the stack is empty
+     * @return the first element of the stack, or `null` if the stack is empty
      */
     override fun pop(): T? {
         if (isEmpty()) {
             return null
         }
-        return stack.removeAt(size() - 1)
+        return stack.removeAt(0)
     }
 
     /**
-     * Removes and returns all elements from the stack in LIFO order.
+     * Removes and returns all elements from the stack in FIFO order.
      *
-     * @return a list of all elements from the stack, removed in LIFO order
+     * @return a list of all elements from the stack, removed in FIFO order
      */
     override fun popAll(): List<T> {
         synchronized(stack) {
@@ -67,11 +67,11 @@ class LIFOStack<T> : Stack<T> {
     }
 
     /**
-     * Returns the top element of the stack without removing it.
+     * Returns the first element of the stack without removing it.
      *
-     * @return the top element of the stack, or `null` if the stack is empty
+     * @return the first element of the stack, or `null` if the stack is empty
      */
-    override fun peek(): T? = stack.lastOrNull()
+    override fun peek(): T? = stack.firstOrNull()
 
     /**
      * Returns the element at the specified index in the stack without removing it.
@@ -94,26 +94,17 @@ class LIFOStack<T> : Stack<T> {
      * @return `true` if the stack contains no elements, `false` otherwise
      */
     override fun isEmpty() = size() == 0
-
-    /**
-     * Returns a string representation of the stack, with each element on a new line.
-     *
-     * @return a string representation of the stack
-     */
-    override fun toString() = buildString {
-        stack.forEach { appendLine("$it") }
-    }
 }
 
 /**
- * Utility function to create a [LIFOStack] initialized with the specified elements.
+ * Utility function to create a [FIFOStack] initialized with the specified elements.
  *
  * @param T the type of elements held in the stack
  * @param elements the elements to be added to the stack
- * @return a [LIFOStack] containing the specified elements
+ * @return a [FIFOStack] containing the specified elements
  */
-fun <T> lifoStackOf(vararg elements: T): Stack<T> {
-    val listStack = LIFOStack<T>()
+fun <T> fifoStackOf(vararg elements: T): Stack<T> {
+    val listStack = FIFOStack<T>()
     listStack.pushAll(elements.asList())
     return listStack
 }
